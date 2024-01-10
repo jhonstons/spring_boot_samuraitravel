@@ -30,28 +30,22 @@ public class Reservation {
 	 @JoinColumn(name = "user_id")
 	 private User user;
 
-	 @Column
-	 @JoinColumn(name = "checkin_date")
+	 @Column(name = "checkin_date")
 	 private LocalDate checkinDate;
 
-	 @Column
-	 @JoinColumn(name = "checkout_date")
+	 @Column(name = "checkout_date")
 	 private LocalDate checkoutDate;
 
-	 @Column
-	 @JoinColumn(name = "number_of_people")
-	 private LocalDate numberOfPeople;
-
-	 @Column
-	 @JoinColumn(name = "amount")
-	 private LocalDate amount;
-
-	 @Column
-	 @JoinColumn(name = "created_at", insertable = false, updatable = false)
+	 @Column(name = "number_of_people")
+	 private Integer numberOfPeople;
+	 
+	 @Column(name = "amount")
+	 private Integer amount;
+	 
+	 @Column(name = "created_at", insertable = false, updatable = false)
 	 private Timestamp createdAt;
 
-	 @Column
-	 @JoinColumn(name = "created_at", insertable = false, updatable = false)
+	 @Column(name = "updated_at", insertable = false, updatable = false)
 	 private Timestamp updatedAt;
 	 
 }
