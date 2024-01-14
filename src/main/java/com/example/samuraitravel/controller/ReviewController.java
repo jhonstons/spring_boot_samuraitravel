@@ -25,8 +25,14 @@ public class ReviewController {
 	public String showInnDetail(@PathVariable Long innId, Model model) {
 		List<Review> reviews = reviewService.getReviewsByInnId(innId);
 		model.addAttribute("reviews", reviews);
-		return "innDetail";
-	}
+	
+	//　新しいReviewオブジェクトを作成して、Thymeleafフォームで利用
+	Review newReview = new Review();
+	newReview.setInnId(innId);
+	model.addAttribute("newReview", newReview);
+	
+	return "innDetail";
+}
 	 
 	@PostMapping("/submitReview")
 	public String submitReview(@ModelAttribute Review review) {

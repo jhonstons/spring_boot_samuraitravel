@@ -1,10 +1,10 @@
 <!-- レビュー編集フォーム -->
-<h2>Edit Review</h2>
-<form action="/innDetail/updateReview" method="post" th:object="${review}">
-		<input type = "hidden" th:field="*{id}"/>
-		<input type = "hidden" th:field="*{innId}"/>
-		<label>Rating: <input type="number" th:field="*{rating}" required /></label>
-		<label>Comment: <textarea th:field="*{comment}" required></textarea></label>
-		<input type="submit" value="Update">
-</form>
+					<h2>レビュー編集フォーム</h2>
+							<form action="/innDetail/updateReview" method="post" th:object="${review}">
+									<input type = "hidden" th:field="*{id}"/>
+									<input type = "hidden" th:field="*{innId}"/>
+									<label>Rating: <input type="number" th:field="*{rating}" required /></label>
+									<label>Comment: <textarea th:field="*{comment}" required></textarea></label>
+									<input type="submit" value="Update">
+						</form>
 
