@@ -1,0 +1,21 @@
+<!-- レビュー一覧表示 -->
+<h2>Reviews</h2>
+<ul>
+		<li th:each="review : ${reviews}">
+				<span th:text="${review.rating}"></span>★ - <span th:text="${review.comment}"></span>
+				<form action="/innDetail/deleteReview/${review.id}" method="post">
+						<input type="submit" value="Delete">
+				</form>
+				<a th:href="@{/innDetail/editReview/{reviewId}(reviewId=${review.id})}">Edit</a>
+		</li>
+</ul>
+
+<!-- レビュー投稿フォーム -->
+
+<h2>Submit a Review</h2>
+<form action="/innDetail/submitReview" method="post" th:object="${newReview}">
+		<input type="hidden" th:field="*{innId}" th:value="${innId}" />
+		<label>Rating: <input type="number" th:field="*{rating}" required /></label>
+		<label>Comment: <textarea th:field="*{comment}" required></textarea></label>
+		<input type ="submit" value="Submit">
+</form>
