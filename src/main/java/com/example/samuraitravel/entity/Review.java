@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "review")
+@Table(name = "reviews")
 public class Review {
 	 @Id
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,9 +19,9 @@ public class Review {
 	 
 	 @Column(name = "house_id")
 	 private Integer houseId;
-	 	 
+	 	 	 
 	 @Column(name = "user_id")
-	 private Integer userId ;
+	 private Integer userId;
 
 	 @Column(name = "review_rating")
 	 private Integer rating;
