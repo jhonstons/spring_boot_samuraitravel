@@ -16,8 +16,7 @@ public class Review {
 	 private String Comment;
 	 
 	 public Long getInnId() {
-		 return innId;
-	 }
+		 return innId;	 }
 	 
 	 public void setInnId(Long innId) {
 		 this.innId = innId;

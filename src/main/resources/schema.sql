@@ -55,3 +55,4 @@ CREATE TABLE IF NOT EXISTS reservations (
    FOREIGN KEY (house_id) REFERENCES houses (id),
    FOREIGN KEY (user_id) REFERENCES users (id)
 );
+
