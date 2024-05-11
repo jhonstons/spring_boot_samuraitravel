@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.samuraitravel.model.Review;
+import com.example.samuraitravel.model.ReviewModel;
 
-public interface ReviewRepository extends JpaRepository<Review, Long> {
-	List<Review> findByInnId(long innId);
+public interface ReviewRepository extends JpaRepository<ReviewModel, Long> {
+	List<ReviewModel> findByInnId(long innId);
 }

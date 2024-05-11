@@ -18,10 +18,10 @@ import com.stripe.net.Webhook;
 public class StripeWebhookController {
 	 private final StripeService stripeService;
 	 
-	 @Value("{stripe.api-key")
+	 @Value("${stripe.api-key}")
 	 private String stripeApiKey;
 	 
-	 @Value("{stripe.webhook-secret")
+	 @Value("${stripe.webhook-secret}")
 	 private String webhookSecret;
 	 
 	 public StripeWebhookController(StripeService stripeService) {

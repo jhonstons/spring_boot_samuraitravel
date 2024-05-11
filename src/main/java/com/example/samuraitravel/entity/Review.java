@@ -20,8 +20,8 @@ public class Review {
 	 @Column(name = "house_id")
 	 private Integer houseId;
 	 	 	 
-	 @Column(name = "user_id")
-	 private Integer userId;
+	 @Column(name = "name")
+	 private String name;
 
 	 @Column(name = "review_rating")
 	 private Integer rating;

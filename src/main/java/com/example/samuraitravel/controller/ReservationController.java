@@ -86,19 +86,32 @@ public class ReservationController {
 	 public String confirm(@PathVariable(name = "id") Integer id,
 	 					   @ModelAttribute ReservationInputForm reservationInputForm,
 	 					   @AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
+	 					   @Validated BindingResult bindingResult,
 	 					   HttpServletRequest httpServletRequest,
 	 					   Model model)
 	{
 		House house = houseRepository.getReferenceById(id);
 		User user = userDetailsImpl.getUser();
 		
+        // チェックイン日とチェックアウト日が同じであれば、BindingResultオブジェクトにエラー内容を追加する
+        if (reservationInputForm.isSameDate()) {
+            FieldError fieldError = new FieldError(bindingResult.getObjectName(), "fromCheckinDateToCheckoutDate", "チェックイン日とチェックアウト日は別日に設定してください。");
+            bindingResult.addError(fieldError);                       
+        }    
+        
+        if (bindingResult.hasErrors()) {
+        	model.addAttribute("house", house);
+        	return "houses/show";
+        }
+        
 		// チェックイン日とチェックアウト日を取得する
-		LocalDate checkinDate =reservationInputForm.getCheckinDate();
-		LocalDate checkoutDate =reservationInputForm.getCheckoutDate();
+		LocalDate checkinDate = reservationInputForm.getCheckinDate();
+		LocalDate checkoutDate = reservationInputForm.getCheckoutDate();
 		
 		// 宿泊料金を計算する
 		Integer price = house.getPrice();
 		Integer amount = reservationService.calculateAmount(checkinDate, checkoutDate, price);
+		
 		
 		ReservationRegisterForm reservationRegisterForm = new ReservationRegisterForm(house.getId(), user.getId(), checkinDate.toString(), checkoutDate.toString(), reservationInputForm.getNumberOfPeople(), amount);
 		

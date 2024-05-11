@@ -55,7 +55,7 @@ public class StripeService {
 					SessionCreateParams.PaymentIntentData.builder()
 						.putMetadata("houseId", reservationRegisterForm.getHouseId().toString())
 						.putMetadata("userId", reservationRegisterForm.getUserId().toString())
-						.putMetadata("checkinDate", reservationRegisterForm.getCheckoutDate())
+						.putMetadata("checkinDate", reservationRegisterForm.getCheckinDate())
 						.putMetadata("checkoutDate", reservationRegisterForm.getCheckoutDate())
 						.putMetadata("numberOfPeople", reservationRegisterForm.getNumberOfPeople().toString())
 						.putMetadata("amount", reservationRegisterForm.getAmount().toString())
@@ -73,7 +73,7 @@ public class StripeService {
 	 // セッションから予約情報を取得し、ReservationServiceクラスを介してデータベースに登録する
 	 public void processSessionCompleted(Event event) {
 		 Optional<StripeObject> optionalStripeObject = event.getDataObjectDeserializer().getObject();
-		 optionalStripeObject.ifPresent(stripeObject -> {
+		 optionalStripeObject.ifPresentOrElse(stripeObject -> {
 			 Session session = (Session)stripeObject;
 			 SessionRetrieveParams params = SessionRetrieveParams.builder().addExpand("payment_intent").build();
 			 
@@ -83,7 +83,15 @@ public class StripeService {
 				 reservationService.create(paymentIntentObject);
 			 } catch (StripeException e) {
 				 e.printStackTrace();
-		 }
-	 });
+			 }	 
+	             System.out.println("予約一覧ページの登録処理が成功しました。");
+	             System.out.println("Stripe API Version: " + event.getApiVersion());
+	             System.out.println("stripe-java Version: " + Stripe.VERSION);
+	         },
+	         () -> {
+	             System.out.println("予約一覧ページの登録処理が失敗しました。");
+	             System.out.println("Stripe API Version: " + event.getApiVersion());
+	             System.out.println("stripe-java Version: " + Stripe.VERSION);
+	         });
+	     }
    }
-}
